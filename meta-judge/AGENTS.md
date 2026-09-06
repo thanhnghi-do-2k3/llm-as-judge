@@ -767,3 +767,15 @@
   metric warning, and marks excluded human rows as informational.
 - Verification: local cache Run All reports `Trạng thái: complete`; the only
   manifest entry is informational (`human_rows_excluded`, 18 rows).
+
+### 2026-09-06 cached demo and manifest display
+
+- Cache-mode demo now displays the six damage levels for a representative B1
+  benchmark sentence using the already loaded 28 metric vectors, writes
+  `analysis/demo.csv`, and labels the example as cached rather than pretending
+  to score a new out-of-benchmark sentence.
+- The manifest cell separates blocking issues from informational notes and
+  prints an explicit zero blocking-error count.
+- Verification: local Run All displayed a six-row B1 table with 31 columns,
+  reported `Trạng thái: complete`, and showed only the expected 18-row human
+  filtering note.
