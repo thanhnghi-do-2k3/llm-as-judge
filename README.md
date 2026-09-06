@@ -19,8 +19,6 @@ repo trên Colab; không cần upload ZIP hay file dữ liệu thủ công.
 ```bash
 cd work
 git remote add origin https://github.com/<tai-khoan>/<repo>.git
-git add .
-git commit -m "Portable Meta-Judge Colab workspace"
 git push -u origin main
 ```
 
