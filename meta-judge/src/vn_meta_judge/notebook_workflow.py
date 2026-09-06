@@ -17,6 +17,7 @@ import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
+from queue import Queue
 from typing import Callable
 from zipfile import ZipFile
 
@@ -63,6 +64,104 @@ def key_list(values):
     ):
         raise ValueError("GEMINI_API_KEYS phải là mảng các chuỗi.")
     return list(dict.fromkeys(v.strip() for v in values if v.strip()))
+
+
+class _GeminiQuotaGroup:
+    """One quota bucket shared by one or more keys from the same profile."""
+
+    def __init__(self, keys, min_interval_seconds, caller, sleep_fn, monotonic_fn):
+        self.keys = key_list(keys)
+        self.min_interval_seconds = max(0.0, float(min_interval_seconds))
+        self.caller = caller
+        self.sleep = sleep_fn
+        self.monotonic = monotonic_fn
+        self._key_lock = threading.Lock()
+        self._rate_lock = threading.Lock()
+        self._key_index = 0
+        self._next_request_at = 0.0
+
+    def call(self, messages, model, tokens):
+        with self._rate_lock:
+            wait_seconds = self._next_request_at - self.monotonic()
+            if wait_seconds > 0:
+                self.sleep(wait_seconds)
+            self._next_request_at = self.monotonic() + self.min_interval_seconds
+        with self._key_lock:
+            key = self.keys[self._key_index % len(self.keys)]
+            self._key_index += 1
+        caller = self.caller or call_gemini
+        return caller(messages, model, key, tokens)
+
+
+class GeminiRequestPool:
+    """Run standard and high-quota Gemini keys through one shared scheduler.
+
+    Standard keys retain the legacy shared concurrency and pacing rule. Each
+    high-quota key receives an independent quota group with configurable lanes.
+    Keys from the same Google project must not be treated as independent quota.
+    """
+
+    def __init__(
+        self,
+        standard_keys=(),
+        high_quota_keys=(),
+        *,
+        standard_workers=1,
+        standard_min_interval_seconds=4.2,
+        high_quota_workers_per_key=4,
+        high_quota_min_interval_seconds=0.25,
+        caller=None,
+        sleep_fn=time.sleep,
+        monotonic_fn=time.monotonic,
+    ):
+        self.standard_keys = key_list(standard_keys)
+        self.high_quota_keys = key_list(high_quota_keys)
+        overlap = sorted(set(self.standard_keys) & set(self.high_quota_keys))
+        if overlap:
+            raise ValueError(
+                "Một Gemini key không được nằm đồng thời trong STANDARD và "
+                "HIGH_QUOTA."
+            )
+        self.keys = self.standard_keys + self.high_quota_keys
+        self._lanes = Queue()
+
+        if self.standard_keys:
+            standard_group = _GeminiQuotaGroup(
+                self.standard_keys,
+                standard_min_interval_seconds,
+                caller,
+                sleep_fn,
+                monotonic_fn,
+            )
+            for _ in range(max(1, int(standard_workers))):
+                self._lanes.put(standard_group)
+
+        for key in self.high_quota_keys:
+            high_quota_group = _GeminiQuotaGroup(
+                [key],
+                high_quota_min_interval_seconds,
+                caller,
+                sleep_fn,
+                monotonic_fn,
+            )
+            for _ in range(max(1, int(high_quota_workers_per_key))):
+                self._lanes.put(high_quota_group)
+
+        self.worker_count = self._lanes.qsize()
+
+    def __call__(self, messages, model, tokens):
+        if not self.keys:
+            raise RuntimeError("Chưa cấu hình Gemini API key.")
+        quota_group = self._lanes.get()
+        try:
+            return quota_group.call(messages, model, tokens)
+        except Exception as exc:
+            message = str(exc)
+            for secret in self.keys:
+                message = message.replace(secret, "[redacted]")
+            raise RuntimeError(message) from None
+        finally:
+            self._lanes.put(quota_group)
 
 
 def parallel_jobs(jobs: dict[str, Callable], workers: int):
@@ -156,6 +255,9 @@ class NotebookExperiment:
         underthesea=True,
         max_tokens=400,
         api_keys=(),
+        high_quota_api_keys=(),
+        high_quota_workers_per_key=4,
+        high_quota_min_interval_seconds=0.25,
     ):
         if not run_name or Path(run_name).name != run_name or run_name in {".", ".."}:
             raise ValueError("RUN_NAME phải là một tên thư mục.")
@@ -171,7 +273,7 @@ class NotebookExperiment:
         self.metrics_dir = self.output / "metrics"
         self.analysis_dir = self.output / "analysis"
         self.model, self.limit, self.seed = model, limit, seed
-        self.api_workers = max(1, int(api_workers))
+        self.standard_api_workers = max(1, int(api_workers))
         self.api_min_interval_seconds = max(0.0, float(api_min_interval_seconds))
         self.cpu_workers = max(1, int(cpu_workers))
         self.worker_python = Path(worker_python or sys.executable).resolve()
@@ -195,17 +297,21 @@ class NotebookExperiment:
             )
         self.heavy, self.underthesea = heavy, underthesea
         self.max_tokens = max_tokens
-        self.keys = key_list(api_keys)
+        self.request_pool = GeminiRequestPool(
+            standard_keys=api_keys,
+            high_quota_keys=high_quota_api_keys,
+            standard_workers=self.standard_api_workers,
+            standard_min_interval_seconds=self.api_min_interval_seconds,
+            high_quota_workers_per_key=high_quota_workers_per_key,
+            high_quota_min_interval_seconds=high_quota_min_interval_seconds,
+        )
+        self.keys = self.request_pool.keys
+        self.api_workers = max(1, self.request_pool.worker_count)
         self.frame = None
         self.human_rows = []
         self.datasets = {}
         self.reports = []
         self.state = {}
-        self._key_lock = threading.Lock()
-        self._rate_lock = threading.Lock()
-        self._request_slots = threading.BoundedSemaphore(self.api_workers)
-        self._key_index = 0
-        self._next_request_at = 0.0
         for directory in [
             self.cache,
             self.logs,
@@ -217,7 +323,13 @@ class NotebookExperiment:
             directory.mkdir(parents=True, exist_ok=True)
 
     def load_translations(
-        self, input_path, *, source_file=None, scores_file=None, expected_rows=300
+        self,
+        input_path,
+        *,
+        source_file=None,
+        scores_file=None,
+        expected_rows=300,
+        translation_generation="reused_translations",
     ):
         """Debug entry point: no sampling, translation, API calls or downloads."""
         self.frame = None
@@ -256,6 +368,7 @@ class NotebookExperiment:
         if source_file:
             self.sources.append(Path(source_file).resolve())
         self.expected_rows = expected_rows
+        self.translation_generation = str(translation_generation)
         return frame
 
     def prepare(self):
@@ -316,7 +429,9 @@ class NotebookExperiment:
             "human_all": len(self.human_rows),
             "human_clean": len(clean),
             "human_excluded": len(self.human_rows) - len(clean),
-            "translation_generation": "reused_translations",
+            "translation_generation": getattr(
+                self, "translation_generation", "reused_translations"
+            ),
             "human_evaluation": "available" if clean else "missing_scores",
         }
         write_json(self.data / "input_audit.json", self.summary)
@@ -339,29 +454,20 @@ class NotebookExperiment:
         write_json(self.generation_dir / f"audit_{name}.json", audit)
         return audit
 
-    def _gemini_caller(self, messages, model, tokens):
-        # Concurrency, pacing and key rotation are shared by both prompt branches.
-        # Gemini quotas are project-scoped, so multiple keys do not multiply RPM.
-        with self._request_slots:
-            with self._rate_lock:
-                wait_seconds = self._next_request_at - time.monotonic()
-                if wait_seconds > 0:
-                    time.sleep(wait_seconds)
-                self._next_request_at = time.monotonic() + self.api_min_interval_seconds
-            with self._key_lock:
-                key = self.keys[self._key_index % len(self.keys)]
-                self._key_index += 1
-            try:
-                return call_gemini(messages, model, key, tokens)
-            except Exception as exc:
-                message = str(exc)
-                for secret in self.keys:
-                    message = message.replace(secret, "[redacted]")
-                raise RuntimeError(message) from None
+    def gemini_caller(self, messages, model, tokens):
+        """Shared request entry point for translation and damage generation."""
+        return self.request_pool(messages, model, tokens)
 
-    def generate(self):
+    def _gemini_caller(self, messages, model, tokens):
+        return self.gemini_caller(messages, model, tokens)
+
+    def generate(self, regenerate_damage=True, damage_files=None):
         if not hasattr(self, "references"):
             raise RuntimeError("Chạy bước chuẩn bị dữ liệu trước.")
+        reuse_files = {
+            str(name): Path(path).resolve()
+            for name, path in (damage_files or {}).items()
+        }
 
         def rule():
             rows = [BenchmarkRow(**r) for r in load_jsonl(self.references)]
@@ -370,8 +476,13 @@ class NotebookExperiment:
             return self._audit_branch(path, "rule_based")
 
         def prompt_branch(prompt):
-            path = self.generation_dir / f"{prompt}.jsonl"
-            if self.keys:
+            generated_path = self.generation_dir / f"{prompt}.jsonl"
+            path = (
+                generated_path
+                if regenerate_damage
+                else reuse_files.get(prompt, generated_path)
+            )
+            if regenerate_damage and self.keys:
                 generate_damage_with_backend(
                     self.references,
                     path,
@@ -380,7 +491,9 @@ class NotebookExperiment:
                     self._gemini_caller,
                     max_output_tokens=self.max_tokens,
                     backend_name="gemini",
-                    workers=self.api_workers,
+                    # Two prompt branches run together and share one request
+                    # pool, so each branch opens at most half the pool lanes.
+                    workers=max(1, math.ceil(self.api_workers / 2)),
                 )
             elif not path.exists():
                 return {"status": "skipped", "reason": "empty_key_array"}
@@ -393,7 +506,12 @@ class NotebookExperiment:
         self.state["generation"] = parallel_jobs(jobs, workers=3)
         for name, result in self.state["generation"].items():
             if result.get("status") == "ready":
-                self.datasets[name] = self.generation_dir / f"{name}.jsonl"
+                if name == "rule_based" or regenerate_damage:
+                    self.datasets[name] = self.generation_dir / f"{name}.jsonl"
+                else:
+                    self.datasets[name] = reuse_files.get(
+                        name, self.generation_dir / f"{name}.jsonl"
+                    )
             else:
                 self.datasets.pop(name, None)
         write_json(

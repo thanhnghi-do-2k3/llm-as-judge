@@ -663,3 +663,42 @@
 - Runtime caveat: a Colab kernel already tainted by the previous notebook cannot
   be repaired safely in place. Delete that runtime once, reconnect, and run the
   updated notebook. Heavy CUDA smoke remains UNKNOWN until that run completes.
+
+### 2026-09-06 unified reuse/regeneration setup and quota profiles
+
+- Scope/impact: main notebook configuration, translation checkpointing, damage
+  selection, Gemini scheduling, metric dataset paths, human-score provenance,
+  and Git-facing documentation.
+- Requirement matrix:
+  - `REGENERATE_TRANSLATIONS=False` reads `resources/source.csv`; `True`
+    generates/resumes A/B under `output/RUN_NAME/translations` and switches the
+    downstream active path to that file — VERIFIED by notebook-cell and
+    provenance tests.
+  - Regenerated A/B must not inherit scores for the Git-pinned translations —
+    `ACTIVE_SCORES_FILE` becomes `None`, and input audit reports
+    `regenerated_translations` with human evaluation missing — VERIFIED.
+  - `REGENERATE_DAMAGE=False` reads Git zero/few-shot files directly without an
+    API call or copy; `True` generates/resumes files under the run output and
+    downstream `experiment.datasets` uses those files — VERIFIED. Direct reuse
+    cannot overwrite an expensive generated checkpoint.
+  - Both regenerate flags default to `False`; key arrays may remain empty and
+    Run All uses only Git artifacts — VERIFIED by a real no-API light-metric Run
+    All and contract tests. Enabling either regenerate flag with no key fails in
+    setup before generation.
+  - Standard and high-quota keys are visibly separate but enter one scheduler —
+    VERIFIED by unit and integrated fake-generation tests. Standard keys retain
+    one shared worker and 4.2-second pacing. Each high-quota key defaults to four
+    lanes and 0.25-second request-start pacing; the latter is a configurable
+    high-throughput profile, not an unlimited-quota claim.
+  - Translation A and both damage branches use the same Gemini scheduler.
+    Translation A can fill all request lanes; Google Translate B stays on a
+    separate two-worker executor — VERIFIED with bounded-concurrency tests.
+- Safety: duplicate keys are removed within each array and rejected across the
+  two arrays. Error messages redact all configured key values. Multiple keys
+  from one Google project still share provider quota; the notebook cannot infer
+  project identity.
+- Verification: 36 notebook contract/integration tests and 34 vendored package
+  tests pass. A real default Run All completed data audit and light metric smoke
+  without API calls, then skipped full metrics as configured.
+- UNKNOWN: live Gemini throughput/429 behavior for the user's projects and full
+  BERTScore/COMET/BLEURT CUDA execution remain Colab runtime checks.

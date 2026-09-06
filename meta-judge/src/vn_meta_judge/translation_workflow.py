@@ -7,8 +7,9 @@ one source are independent; checkpoints are written by the main thread.
 
 import hashlib
 import re
+import threading
 import time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 from .generation.gemini import call_gemini
@@ -27,10 +28,19 @@ TRANSLATE_SYSTEM_PROMPT = (
 
 
 def translate_dataset(
-    frame, output_dir, *, api_keys, model, source_caller=None, target_caller=None
+    frame,
+    output_dir,
+    *,
+    api_keys,
+    model,
+    source_caller=None,
+    target_caller=None,
+    request_caller=None,
+    source_workers=1,
+    target_workers=2,
 ):
     keys = key_list(api_keys)
-    if not keys and source_caller is None:
+    if not keys and source_caller is None and request_caller is None:
         raise ValueError("Điền GEMINI_API_KEYS để sinh bản dịch mới.")
     output_dir.mkdir(parents=True, exist_ok=True)
     cache_file = output_dir / "translations_cache.json"
@@ -49,22 +59,30 @@ def translate_dataset(
     write_json(contract_path, contract)
     cache = read_json(cache_file, {})
     index = 0
+    index_lock = threading.Lock()
 
     def system_a(text):
         nonlocal index
-        key = keys[index % len(keys)]
-        index += 1
+        direct_key = None
+        if request_caller is None:
+            with index_lock:
+                direct_key = keys[index % len(keys)]
+                index += 1
         warning = ""
         for attempt in range(2):
-            result = call_gemini(
-                [
-                    {"role": "system", "content": TRANSLATE_SYSTEM_PROMPT},
-                    {"role": "user", "content": text + warning},
-                ],
-                model,
-                key,
-                max_output_tokens=None,
-            )
+            messages = [
+                {"role": "system", "content": TRANSLATE_SYSTEM_PROMPT},
+                {"role": "user", "content": text + warning},
+            ]
+            if request_caller is not None:
+                result = request_caller(messages, model, None)
+            else:
+                result = call_gemini(
+                    messages,
+                    model,
+                    direct_key,
+                    max_output_tokens=None,
+                )
             if not re.search(r"[\u4e00-\u9fff]", result):
                 return result
             warning = "\n\n(Lưu ý: câu trả lời PHẢI bằng tiếng Việt, không lặp lại tiếng Trung.)"
@@ -88,29 +106,43 @@ def translate_dataset(
                 time.sleep(min(2 ** (attempt + 1), 30))
 
     failures = []
-    with ThreadPoolExecutor(max_workers=2) as pool:
+    source_pool = ThreadPoolExecutor(max_workers=max(1, int(source_workers)))
+    target_pool = ThreadPoolExecutor(max_workers=max(1, int(target_workers)))
+    try:
+        futures = {}
         for row in frame.itertuples():
-            futures = {}
-            for system, caller in [
-                ("A", source_caller or system_a),
-                ("B", target_caller or system_b),
+            for system, caller, pool, attempts in [
+                (
+                    "A",
+                    source_caller if source_caller is not None else system_a,
+                    source_pool,
+                    2,
+                ),
+                ("B", target_caller or system_b, target_pool, 4),
             ]:
                 cache_key = f"{row.STT}_{system}"
                 if not cache.get(cache_key):
-                    futures[system] = pool.submit(
-                        retry_call, caller, row.Cau_nguon_ZH, 2 if system == "A" else 4
+                    future = pool.submit(
+                        retry_call,
+                        caller,
+                        row.Cau_nguon_ZH,
+                        attempts,
                     )
-            for system, future in futures.items():
-                try:
-                    cache[f"{row.STT}_{system}"] = future.result()
-                except Exception as exc:
-                    message = str(exc)
-                    for secret in keys:
-                        message = message.replace(secret, "[redacted]")
-                    failures.append(
-                        {"STT": row.STT, "system": system, "error": message}
-                    )
+                    futures[future] = (row.STT, system, cache_key)
+
+        for future in as_completed(futures):
+            stt, system, cache_key = futures[future]
+            try:
+                cache[cache_key] = future.result()
+            except Exception as exc:
+                message = str(exc)
+                for secret in keys:
+                    message = message.replace(secret, "[redacted]")
+                failures.append({"STT": stt, "system": system, "error": message})
             write_json(cache_file, cache)
+    finally:
+        source_pool.shutdown(wait=True)
+        target_pool.shutdown(wait=True)
     result = frame.copy()
     for system in ["A", "B"]:
         result[f"Ban_dich_He_{system}"] = result.STT.map(

@@ -24,11 +24,36 @@ git clone https://github.com/thanhnghi-do-2k3/llm-as-judge.git
 trực tiếp từ GitHub bằng Colab rồi chọn **Runtime → Run all**; notebook sẽ tự
 clone source và resource vào runtime khi cần.
 
+## Cấu hình trong notebook
+
+Toàn bộ tùy chọn cần chỉnh nằm trong cell `setup` đầu tiên:
+
+| Tùy chọn | Mặc định | Ý nghĩa |
+|---|---:|---|
+| `REGENERATE_TRANSLATIONS` | `False` | Dùng A/B trong Git; bật `True` để sinh/resume A bằng Gemini và B bằng Google Translate. |
+| `REGENERATE_DAMAGE` | `False` | Dùng zero/few-shot trong Git; bật `True` để sinh/resume damage mới. |
+| `RUN_METRIC_SMOKE_TEST` | `True` | Test một cấu hình của từng họ metric trên 24 hàng. |
+| `RUN_FULL_METRICS` | `False` | Không chấm full cho tới khi smoke test đã pass. |
+
+Gemini key được phân thành hai mảng nhưng chạy qua cùng một scheduler:
+
+- `STANDARD_GEMINI_API_KEYS`: quota thường, dùng chung một worker và khoảng cách
+  4,2 giây như rule an toàn cũ.
+- `HIGH_QUOTA_GEMINI_API_KEYS`: mỗi key có pool riêng, mặc định bốn worker và
+  khoảng cách 0,25 giây. Chỉ dùng cho project đã kiểm tra RPM/RPD cao; không có
+  key nào thực sự không giới hạn. Nhiều key thuộc cùng một project vẫn chia sẻ
+  quota của project đó.
+
+Nếu hai cờ regenerate đều `False`, notebook không gọi Gemini kể cả khi mảng key
+có giá trị. Khi sinh A/B lại, notebook dùng ngay file mới ở các bước sau và
+không ghép `scores.xlsx` cũ, vì điểm đó thuộc các bản dịch A/B trong Git.
+
 ## Hành vi của Run All
 
 - Tự clone repo nếu runtime chưa có source.
 - Đọc resource bằng đường dẫn tương đối trong repo.
-- Không gọi Gemini và không dùng API key khi `USE_PREGENERATED_DAMAGE=True`.
+- Mặc định `REGENERATE_TRANSLATIONS=False` và `REGENERATE_DAMAGE=False`: dùng
+  toàn bộ artifact trong Git, không gọi Gemini và không tốn quota.
 - Probe NumPy/Pandas, BERTScore, COMET và BLEURT trước khi chạy full.
 - Smoke test một config mỗi họ trên input nhỏ; lỗi dừng sớm và chỉ rõ log.
 - Mặc định `RUN_FULL_METRICS=False`: Run All chỉ chạy heavy smoke test; đổi thành
