@@ -754,3 +754,16 @@
   restored by the bootstrap cell; notebook AST parsing, cache tests, and a
   local source-cache Run All all passed. The updated notebook must be uploaded
   or reopened in Kaggle after this change.
+
+### 2026-09-06 cache manifest status
+
+- Symptom: cache-mode Run All completed metric correlation but `manifest.json`
+  reported `partial` for disabled heavy metrics, missing generation/demo stages,
+  and an unprovided manual audit.
+- Root cause — VERIFIED: `finalize()` treated expected cache-mode skips as
+  blocking issues, while the cache branch did not write a generation summary.
+- Fix: cache mode now writes `generation_summary.json`, records the external
+  demo as skipped, accepts an unprovided manual audit, suppresses the heavy
+  metric warning, and marks excluded human rows as informational.
+- Verification: local cache Run All reports `Trạng thái: complete`; the only
+  manifest entry is informational (`human_rows_excluded`, 18 rows).

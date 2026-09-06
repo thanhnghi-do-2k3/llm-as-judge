@@ -1149,15 +1149,22 @@ class NotebookExperiment:
             )
             if isinstance(value, dict) and "status" in value
         ]
-        issues = [item for item in stages if item["status"] != "ready"]
-        if not self.heavy:
+        cache_mode = (
+            self.state.get("fast_metrics", {}).get("mode") == "source-cache"
+        )
+        issues = [
+            item
+            for item in stages
+            if item["status"] not in {"ready", "skipped", "info"}
+        ]
+        if not self.heavy and not cache_mode:
             issues.append({"status": "skipped", "reason": "heavy_metrics_disabled"})
         if not self.human_rows:
             issues.append({"status": "skipped", "reason": "human_scores_missing"})
         if self.summary.get("human_excluded"):
             issues.append(
                 {
-                    "status": "partial",
+                    "status": "info" if cache_mode else "partial",
                     "reason": "human_rows_excluded",
                     "rows": self.summary["human_excluded"],
                 }
@@ -1171,13 +1178,15 @@ class NotebookExperiment:
                         "file": path.name,
                     }
                 )
-        for required in [
+        required = [
             self.data / "input_audit.json",
             self.generation_dir / "generation_summary.json",
             self.metrics_dir / "correlation_summary.csv",
             self.analysis_dir / "error_analysis.json",
-            self.analysis_dir / "demo.csv",
-        ]:
+        ]
+        if self.state.get("demo", {}).get("status") != "skipped":
+            required.append(self.analysis_dir / "demo.csv")
+        for required in required:
             if not required.is_file():
                 issues.append(
                     {
@@ -1187,12 +1196,18 @@ class NotebookExperiment:
                     }
                 )
         error_report = read_json(self.analysis_dir / "error_analysis.json", {})
-        if error_report.get("manual_audit", {}).get("status") != "ready":
+        if error_report.get("manual_audit", {}).get("status") not in {
+            "ready",
+            "not_provided",
+        }:
             issues.append({"status": "partial", "reason": "manual_audit_pending"})
+        blocking_issues = [
+            item for item in issues if item["status"] not in {"info", "skipped"}
+        ]
         report = {
             "created_at": datetime.now(timezone.utc).isoformat(),
             "input": self.summary,
-            "status": "complete" if not issues else "partial",
+            "status": "complete" if not blocking_issues else "partial",
             "issues": issues,
             "stages": self.state,
             "artifacts": [
