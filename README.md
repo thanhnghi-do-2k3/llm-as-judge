@@ -14,17 +14,15 @@ repo trên Colab; không cần upload ZIP hay file dữ liệu thủ công.
 - `resources/zero_shot.jsonl`, `few_shot.jsonl`: mỗi nhánh 1.800 hàng.
 - `cheat-runtime/`: notebook chuyên dụng cho generation hoặc chấm từng nhánh.
 
-## Thiết lập Git một lần
+## Repo Git
 
 ```bash
-cd work
-git remote add origin https://github.com/<tai-khoan>/<repo>.git
-git push -u origin main
+git clone https://github.com/thanhnghi-do-2k3/llm-as-judge.git
 ```
 
-Sau khi tạo remote, thay `WORK_REPO_URL` trong cell cấu hình của
-`main-experiment.ipynb` bằng URL HTTPS đó, commit và push lần nữa. Mở notebook
-từ GitHub bằng Colab rồi chọn **Runtime → Run all**.
+`WORK_REPO_URL` trong `main-experiment.ipynb` đã trỏ tới repo này. Mở notebook
+trực tiếp từ GitHub bằng Colab rồi chọn **Runtime → Run all**; notebook sẽ tự
+clone source và resource vào runtime khi cần.
 
 ## Hành vi của Run All
 
