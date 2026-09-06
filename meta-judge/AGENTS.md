@@ -617,3 +617,24 @@
 - UNKNOWN: full BERTScore/COMET/BLEURT GPU execution on a fresh Colab. The local
   Git repo also needs a user-owned remote and one configured `WORK_REPO_URL`
   before an external Colab runtime can clone it.
+
+### 2026-09-06 smoke-only heavy-metric mode
+
+- Requirement: permit a fresh Colab GPU to run real heavy metric checks without
+  continuing into the full dataset. Implementation sets
+  `RUN_HEAVY_METRICS=True`, `RUN_METRIC_SMOKE_TEST=True`, and defaults
+  `RUN_FULL_METRICS=False`; the smoke uses 24 combined rows and one
+  representative configuration from each metric family — VERIFIED by notebook
+  configuration and scheduler contracts.
+- Requirement: Run All must not accidentally call the full scheduler or stale
+  downstream analysis in smoke-only mode. The full, correlation, analysis,
+  diagnostics, demo, and finalize cells are guarded by `FULL_METRICS_READY` —
+  VERIFIED by a behavioral notebook-cell test and a real light-metric Run All.
+- Requirement: setting `RUN_FULL_METRICS=True` must preserve the optimized full
+  scheduler — VERIFIED by a behavioral notebook-cell test.
+- Commands: notebook contract suite 28 passed; vendored package suite 27 passed;
+  `python3 documents/nlp-ck_group/verify_light_run.py` exercises every notebook
+  cell locally with real light metrics and no API.
+- UNKNOWN: this machine has no CUDA device, so BERTScore, COMET, and BLEURT
+  downloads/model inference in the 24-row heavy smoke still require one fresh
+  Colab GPU run.

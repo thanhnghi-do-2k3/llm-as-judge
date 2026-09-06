@@ -31,6 +31,8 @@ clone source và resource vào runtime khi cần.
 - Không gọi Gemini và không dùng API key khi `USE_PREGENERATED_DAMAGE=True`.
 - Probe NumPy/Pandas, BERTScore, COMET và BLEURT trước khi chạy full.
 - Smoke test một config mỗi họ trên input nhỏ; lỗi dừng sớm và chỉ rõ log.
+- Mặc định `RUN_FULL_METRICS=False`: Run All chỉ chạy heavy smoke test; đổi thành
+  `True` sau khi smoke pass để chấm toàn bộ.
 - Full metric ghép human/B1/zero/few để mỗi model nặng chỉ nạp một lần.
 - Checkpoint tự resume trong cùng `RUN_NAME`.
 
