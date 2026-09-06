@@ -1,0 +1,1196 @@
+{
+    "qa": {
+        "id": [
+            0,
+            1,
+            2
+        ],
+        "question_orig": [
+            "Pro jaké divadlo skládal Karel Plíhal?",
+            "Z kterého muzikálu pochází největší hit zpěvačky Jany Petrů?",
+            "Jak se jmenuje ministryně zahraničí Spojených států původem z Česka?"
+        ],
+        "question_en": [
+            "For which theater did Karel Plíhal compose?",
+            "From which musical comes the biggest hit of the singer Jana Petrů?",
+            "What is the name of the secretary of state of the United States originally from the Czech Republic?"
+        ],
+        "answer_orig": [
+            "Pro Moravské divadlo Olomouc.",
+            "Z muzikálu Starci na chmelu.",
+            "Madeleine Albrightová."
+        ],
+        "answer_en": [
+            "For the Moravian Theater Olomouc.",
+            "From the musical Starci na chmelu.",
+            "Madeleine Albright."
+        ],
+        "wikititle": [
+            "Karel_Plíhal",
+            "Jana_Petrů",
+            "Čechoameričané"
+        ],
+        "translations": [
+            {
+                "questions": {
+                    "sk": "Pre aké divadlo skladal Karel Plíhal?",
+                    "uk": "Для якого театру писав Карел Пліхал?"
+                },
+                "answers": {
+                    "sk": "Pre Moravské divadlo Olomouc.",
+                    "uk": "Для Моравського театру в Оломоуці."
+                }
+            },
+            {
+                "questions": {
+                    "sk": "Z ktorého muzikálu pochádza najväčší hit speváčky Jany Petrů?",
+                    "uk": "З якого мюзиклу походить найбільший хіт співачки Яни Петру?"
+                },
+                "answers": {
+                    "sk": "Z muzikálu Starci na chmelu.",
+                    "uk": "З мюзиклу \"Старці на хмелю\"."
+                }
+            },
+            {
+                "questions": {
+                    "sk": "Ako sa volá ministerka zahraničia Spojených štátov pôvodom z Česka?",
+                    "uk": "Як звуть міністерку закордонних справ США чеського походження?"
+                },
+                "answers": {
+                    "sk": "Madeleine Albrightová.",
+                    "uk": "Мадлен Олбрайт."
+                }
+            }
+        ],
+        "generated_orig": [
+            {
+                "Llama-3.3-70B-Instruct": "Karel Plíhal skládal pro divadlo Husa na provázku.",
+                "Llama-3.1-8B-Instruct": "Pro Divadlo Na zábradlí.",
+                "EuroLLM-9B-Instruct": "Karel Plíhal skládal pro Divadlo loutek v Ostravě.",
+                "Mistral-7B-Instruct-v0.3": "Plíhálův divadélko (Plíhál's Little Theatre)",
+                "Llama-4-Scout-17B-16E-Instruct": "Pro Národní divadlo."
+            },
+            {
+                "Llama-3.3-70B-Instruct": "Z muzikálu Jesus Christ Superstar.",
+                "Llama-3.1-8B-Instruct": "Z muzikálu \"Šíleně smutná princezna\".",
+                "EuroLLM-9B-Instruct": "Největší hit zpěvačky Jany Petrů pochází z muzikálu \"Starci na chmelu\".",
+                "Mistral-7B-Instruct-v0.3": "Z muzikálu \"Evita\" pochází největší hit zpěvačky Jany Petrů \"Don't Cry for Me, Argentina\".",
+                "Llama-4-Scout-17B-16E-Instruct": "Z muzikálu Noc na Karlštejně."
+            },
+            {
+                "Llama-3.3-70B-Instruct": "Madeleine Albrightová.",
+                "Llama-3.1-8B-Instruct": "Mikuláš Miko (není ministryně), ale spíše  Antony Blinken (není ministryně), ale spíše  Victoria Nuland.",
+                "EuroLLM-9B-Instruct": "Michelle Kovářová Clintonová.",
+                "Mistral-7B-Instruct-v0.3": "The Secretary of State from the Czech Republic in the United States is named Antony Blinken.",
+                "Llama-4-Scout-17B-16E-Instruct": "Jmenuje se Madeleine Albrightová."
+            }
+        ],
+        "generated_en": [
+            {
+                "Llama-3.3-70B-Instruct": "Divadlo Husa na provázku (Goose on a String Theatre).",
+                "Llama-3.1-8B-Instruct": "The Estates Theatre in Prague.",
+                "EuroLLM-9B-Instruct": "The Plíhal Theatre.",
+                "Mistral-7B-Instruct-v0.3": "Karel Plíhal composed for the National Theater (Národní divadlo) in Prague, Czech Republic. He was a prominent Czech composer and conductor, known for his operas and ballets.",
+                "Llama-4-Scout-17B-16E-Instruct": "Karel Plíhal composed for the National Theatre in Prague."
+            },
+            {
+                "Llama-3.3-70B-Instruct": "Jesus Christ Superstar.",
+                "Llama-3.1-8B-Instruct": "I'm not familiar with the singer Jana Petrů.",
+                "EuroLLM-9B-Instruct": "The biggest hit of Jana Petrů comes from the musical 'The Sound of Music'. The song 'Do-Re-Mi' is her signature hit from this musical.",
+                "Mistral-7B-Instruct-v0.3": "The biggest hit of singer Jana Petrů is \"What's Up Danger\" from the animated series \"Kipo and the Age of Wonderbeasts.\" However, it's important to note that while this song gained significant popularity, it is not from a traditional musical.",
+                "Llama-4-Scout-17B-16E-Instruct": "The musical is \"Gigi\". Jana Petrů had a hit with the song \"Gigi\"."
+            },
+            {
+                "Llama-3.3-70B-Instruct": "Madeleine Albright.",
+                "Llama-3.1-8B-Instruct": "Madeleine Albright.",
+                "EuroLLM-9B-Instruct": "The current secretary of state of the United States originally from the Czech Republic is Antony Blinken.",
+                "Mistral-7B-Instruct-v0.3": "The Secretary of State of the United States who is originally from the Czech Republic is Tony Blinken. He was born in 1962 in Slovenia (then part of Yugoslavia), but his parents are of Jewish-Czech and Polish descent. Blinken immigrated to the United States with his family when he was four years old.",
+                "Llama-4-Scout-17B-16E-Instruct": "Madeleine Albright."
+            }
+        ],
+        "category": [
+            "culture",
+            "culture",
+            "politics"
+        ],
+        "human_eval_orig": [
+            {
+                "Llama-3.3-70B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "Llama-3.1-8B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "EuroLLM-9B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "Mistral-7B-Instruct-v0.3": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": false,
+                    "answer_score": 0
+                },
+                "Llama-4-Scout-17B-16E-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                }
+            },
+            {
+                "Llama-3.3-70B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "Llama-3.1-8B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "EuroLLM-9B-Instruct": {
+                    "correctness": true,
+                    "truthfulness": true,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 4
+                },
+                "Mistral-7B-Instruct-v0.3": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": null,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "Llama-4-Scout-17B-16E-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                }
+            },
+            {
+                "Llama-3.3-70B-Instruct": {
+                    "correctness": true,
+                    "truthfulness": true,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 4
+                },
+                "Llama-3.1-8B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": false,
+                    "coherence": false,
+                    "answer_score": 0
+                },
+                "EuroLLM-9B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "Mistral-7B-Instruct-v0.3": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": null,
+                    "answer_score": 0
+                },
+                "Llama-4-Scout-17B-16E-Instruct": {
+                    "correctness": true,
+                    "truthfulness": true,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 4
+                }
+            }
+        ],
+        "human_eval_en": [
+            {
+                "Llama-3.3-70B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": null,
+                    "answer_score": 0
+                },
+                "Llama-3.1-8B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "EuroLLM-9B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "Mistral-7B-Instruct-v0.3": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": false,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "Llama-4-Scout-17B-16E-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                }
+            },
+            {
+                "Llama-3.3-70B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "Llama-3.1-8B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": false,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "EuroLLM-9B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": false,
+                    "coherence": null,
+                    "answer_score": 0
+                },
+                "Mistral-7B-Instruct-v0.3": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": false,
+                    "coherence": null,
+                    "answer_score": 0
+                },
+                "Llama-4-Scout-17B-16E-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": null,
+                    "coherence": null,
+                    "answer_score": 0
+                }
+            },
+            {
+                "Llama-3.3-70B-Instruct": {
+                    "correctness": true,
+                    "truthfulness": true,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 4
+                },
+                "Llama-3.1-8B-Instruct": {
+                    "correctness": true,
+                    "truthfulness": true,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 4
+                },
+                "EuroLLM-9B-Instruct": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "Mistral-7B-Instruct-v0.3": {
+                    "correctness": false,
+                    "truthfulness": false,
+                    "relevance": false,
+                    "coherence": true,
+                    "answer_score": 0
+                },
+                "Llama-4-Scout-17B-16E-Instruct": {
+                    "correctness": true,
+                    "truthfulness": true,
+                    "relevance": true,
+                    "coherence": true,
+                    "answer_score": 4
+                }
+            }
+        ]
+    },
+    "rose": {
+        "source": [
+            "Club Tijuana star Juan Arango conjured memories Luis Suarez in his team's 4-3 defeat by Monterrey in the Mexican league - but it was not through prodigious scoring. The Venezuelan icon Arango sank his teeth into the shoulder of Jesus Zavela as his temper flared in the defeat. He was not booked by the referee but could face a heavy retrospective ban. Juan Arango (left) bites the shoulder of opponent Jesus Zavela in a moment of madness . Zavala holds his shoulder after being bitten by Arango, in the game Zavala's side won 4-3 in Mexico . Zavala shows the referee the mark on his shoulder after being bittern by Arango . Arango (right) earlier scored a magnificent free kick to bring his Club Tijuana team level against Monterrey . Arango had earlier curled in a magnificent free kick for his team to bring them level after falling 2-0 down early on in the encounter. But the 34-year-old overshadowed his goal with the bite as television cameras picked up the moment of madness. Arango spent 10 years playing in Europe, spending five seasons each at Real Mallorca in Spain and Borussia Monchengladbach in Germany. He has made 121 appearances for Venezuela.",
+            "Tim Sherwood will welcome Gary Gardner back into his first team squad during pre-season to assess closely whether the 22-year-old can cut it for Aston Villa in the Premier League. Gardner has enjoyed a successful loan spell at Nottingham Forest and scored a superb free-kick in front of the Villa manager during the defeat to Watford at the City Ground. Sherwood is keen to see Gardner, a former England Under-21 player, train day-to-day before making up his mind and he has spoken previously about his desire for homegrown players to make an impact at the club. Gary Gardner (left) will report to Aston Villa for pre-season training to be assessed by Tim Sherwood . The Villa boss has inspired the club since being appointed and helped lead them to an FA Cup final . Gardner, born in Solihull, joined Villa's academy aged seven and last year was rewarded with a new contract that expires in June 2016 despite suffering serious knee injuries. 'I will go back to Villa in the summer and we will see what happens,' he said. 'When I am back there in training, it will be my chance to impress. Tim Sherwood will not have seen much of me in training, because I have not been there. 'Villa are the main club, I have been there since I was seven and it is the team I support. But Forest have been fantastic to me. It is definitely the second team in my heart. 'If I was made available for loan again next season, if it does not work out at Villa, Forest would be top of my list, definitely. It is the best loan move I have had.' Gardner scored a stunning free-kick against Watford with Sherwood in attendance at the City Ground .",
+            "For years medical experts have warned about the dangers of too much salt, but now new research is questioning conventional wisdom and warning instead of the dangers of too little salt . For years medical experts have warned about the dangers of too much salt, but new research is now questioning conventional wisdom and warning instead of the dangers of too little salt. Both federal government regulations and the American Heart Association have for decades warned that excess salt contributes to the deaths of tens of thousands of Americans each year. As the federal government prepares its influential Dietary Guidelines for 2015, some scientists are now saying that the average American salt consumption rate carries no risk. The guidelines currently dictate the people should limit their intake to 2,300 milligrams, with an even stricter 1,500 milligram limit for African Americans and people over 50. In February the  Dietary Guidelines Advisory Committee recommended keeping the larger limit, although it withdrew support for the stricter limit for African Americans and people over 50, reports The Washington Post. 'There is no longer any valid basis for the current salt guidelines,' said Andrew Mente, a professor at McMaster University in Ontario and one of the researchers involved in a major study published last year by the New England Journal of Medicine. 'So why are we still scaring people about salt?' While experts on both sides agree that eating too much salt - especially for people with high blood pressure - can be dangerous there is much disagreement over what constitutes too much. The average American ingests about 3,500 milligrams of salt per day - the amount of sodium in a teaspoon of salt - and so under the current dietary guidelines Americans are indeed endangering themselves. Even within the American Heart Association, one of the organizations promoting the current salt limits, there is disagreement with at least one former president claiming that there is no evidence that reducing salt consumption can lower blood pressure . Salt skeptics however believe most Americans are fine. In their view, a typical healthy person can consume as much as 6,000 milligrams per day without significantly raising health risks. The skeptics also warn of the dangers of consuming too little - they say that below 3,000 milligrams also raises health risks. The PURE study published last August by the New England Journal of Medicine found that people who conform to the recommended limits (2,300 milligrams) actually have more heart trouble. They found that low sodium may stimulate the production of renin, a hormone that may have harmful effects on blood vessels. Even within the American Heart Association, one of the organizations promoting the current salt limits, there is disagreement. 'The totality of the evidence strongly suggests that Americans should be lowering their sodium intake,' said Elliott Antman, the president of the American Heart Association. 'Everyone agrees that current sodium intake is too high.' But Suzanne Oparil, a former president of the American Heart Association, told the Post that there is no evidence that reducing salt consumption can lower blood pressure. A spokesperson for the Department of Health and Human Services has said that the federal guidelines are considering comments from the public and the advice of its science panel."
+        ],
+        "reference": [
+            "Juan Arango escaped punishment from the referee for biting Jesus Zavela .\nHe could face a retrospective punishment for the incident .\nArango had earlier scored a free kick in his team's 4-3 defeat .",
+            "Gary Gardner confirms he'll report to Aston Villa for pre-season training .\nThe 22-year-old is out on loan at Championship side Nottingham Forest .\nTim Sherwood is keen to asses Gardner ahead of next season .\nThe midfielder would prefer a move back to Forest if Villa doesn't wok out .\nCLICK HERE for all the latest Aston Villa news .",
+            "Current federal government guidelines dictate the people should limit their salt intake to 2,300 milligrams .\nScientists now believe a typical healthy person can consume as much as 6,000 milligrams per day without significantly raising health risks .\nThe same skeptics also warn of the health risks associated with consuming less than 3,000 milligrams .\nAverage American ingests about 3,500 milligrams of salt per day ."
+        ],
+        "reference_acus": [
+            [
+                "Juan Arango escaped punishment.",
+                "Juan Arango bit Jesus Zavela.",
+                "Juan Arango escaped punishment from the referee",
+                "Arango could face a retrospective punishment.",
+                "Arango could face a retrospective punishment for the incident",
+                "Arango had eariler scored a free kick.",
+                "Arango scored for his team.",
+                "Arango had a defeat.",
+                "Arango's team suffered a defeat",
+                "Arango's team suffered a 4-3 defeat"
+            ],
+            [
+                "Gary Gardner confirms he'll report to Aston Villa.",
+                "Gary Gardner will report to Aston Villa for pre-season training.",
+                "Gary Gardner is 22 years old.",
+                "Gary Gardner is out on loan.",
+                "Gary Gardner is out on loan at Nottingham Forest.",
+                "Gary Gardner is at the Championship side.",
+                "Tim Sherwood is keen to asses Gardner.",
+                "Tim Sherwood is keen to asses Gardner ahead of next season.",
+                "The midfielder would prefer a move back to Forest.",
+                "The midfielder would prefer a move back if Villa doesn't work out.",
+                "CLICK HERE for all the latest Aston Villa news."
+            ],
+            [
+                "Current federal goverment guidelines dictate the people.",
+                "Current federal government guidelines dictate the people about their salt intake.",
+                "The guidelines dictate the people should limit their salt intake.",
+                "People are dictated to limit their salt intake to 2,300 miligrams.",
+                "Scientists believe a typical healthy person can consume 6,000 miligrams per day.",
+                "Scientists believe a typical healthy person can consume 6,000 miligrams per day without significantly raising health risks.",
+                "The same skeptics also warn of the health risks.",
+                "The same skeptics warn the health risks associated with consuming less then 3,000 miligrams.",
+                "Average American ingests about 3,500 miligrams of salt per day."
+            ]
+        ],
+        "count_id": [
+            0,
+            1,
+            2
+        ],
+        "example_id": [
+            "000571afe702684d90c1d222ce70b1e1375c1016",
+            "000642916e3a6c33411c617cf2f3c134a206fba8",
+            "00110802bc6eae0e8e4d3d22e27f458f41be2b22"
+        ],
+        "annotations": [
+            {
+                "bart": {
+                    "acu_labels": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "acu": 1.0,
+                    "normalized_acu": 0.5503382086753845
+                },
+                "gold": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.30000001192092896,
+                    "normalized_acu": 0.2684518098831177
+                },
+                "pegasus": {
+                    "acu_labels": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.30000001192092896,
+                    "normalized_acu": 0.30000001192092896
+                },
+                "brio": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "acu": 0.800000011920929,
+                    "normalized_acu": 0.6230406165122986
+                },
+                "gsum": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "acu": 0.8999999761581421,
+                    "normalized_acu": 0.5933165550231934
+                },
+                "simcls": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.5,
+                    "normalized_acu": 0.42324087023735046
+                },
+                "cliff": {
+                    "acu_labels": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "acu": 1.0,
+                    "normalized_acu": 0.7788007855415344
+                },
+                "ctrlsum": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0
+                    ],
+                    "acu": 0.699999988079071,
+                    "normalized_acu": 0.5015718936920166
+                },
+                "frost": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.30000001192092896,
+                    "normalized_acu": 0.30000001192092896
+                },
+                "glob": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.4000000059604645,
+                    "normalized_acu": 0.3680177628993988
+                },
+                "matchsum": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "acu": 0.4000000059604645,
+                    "normalized_acu": 0.33859267830848694
+                },
+                "brio-ext": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.5,
+                    "normalized_acu": 0.39484646916389465
+                }
+            },
+            {
+                "bart": {
+                    "acu_labels": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.3636363744735718,
+                    "normalized_acu": 0.3636363744735718
+                },
+                "gold": {
+                    "acu_labels": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.6363636255264282,
+                    "normalized_acu": 0.6363636255264282
+                },
+                "pegasus": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.3636363744735718,
+                    "normalized_acu": 0.3636363744735718
+                },
+                "brio": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.4545454680919647,
+                    "normalized_acu": 0.4545454680919647
+                },
+                "gsum": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.3636363744735718,
+                    "normalized_acu": 0.3579099178314209
+                },
+                "simcls": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.3636363744735718,
+                    "normalized_acu": 0.3636363744735718
+                },
+                "cliff": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.4545454680919647,
+                    "normalized_acu": 0.4545454680919647
+                },
+                "ctrlsum": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.3636363744735718,
+                    "normalized_acu": 0.3636363744735718
+                },
+                "frost": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.27272728085517883,
+                    "normalized_acu": 0.27272728085517883
+                },
+                "glob": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.4545454680919647,
+                    "normalized_acu": 0.4545454680919647
+                },
+                "matchsum": {
+                    "acu_labels": [
+                        0.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.27272728085517883,
+                    "normalized_acu": 0.27272728085517883
+                },
+                "brio-ext": {
+                    "acu_labels": [
+                        1.0,
+                        1.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.3636363744735718,
+                    "normalized_acu": 0.3636363744735718
+                }
+            },
+            {
+                "bart": {
+                    "acu_labels": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.0,
+                    "normalized_acu": 0.0
+                },
+                "gold": {
+                    "acu_labels": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.0,
+                    "normalized_acu": 0.0
+                },
+                "pegasus": {
+                    "acu_labels": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.4444444477558136,
+                    "normalized_acu": 0.38486233353614807
+                },
+                "brio": {
+                    "acu_labels": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.4444444477558136,
+                    "normalized_acu": 0.39073798060417175
+                },
+                "gsum": {
+                    "acu_labels": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.4444444477558136,
+                    "normalized_acu": 0.38486233353614807
+                },
+                "simcls": {
+                    "acu_labels": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.4444444477558136,
+                    "normalized_acu": 0.424694687128067
+                },
+                "cliff": {
+                    "acu_labels": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.4444444477558136,
+                    "normalized_acu": 0.4279242753982544
+                },
+                "ctrlsum": {
+                    "acu_labels": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.2222222238779068,
+                    "normalized_acu": 0.19389450550079346
+                },
+                "frost": {
+                    "acu_labels": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.4444444477558136,
+                    "normalized_acu": 0.3622300922870636
+                },
+                "glob": {
+                    "acu_labels": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "acu": 0.5555555820465088,
+                    "normalized_acu": 0.5555555820465088
+                },
+                "matchsum": {
+                    "acu_labels": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.4444444477558136,
+                    "normalized_acu": 0.3819577097892761
+                },
+                "brio-ext": {
+                    "acu_labels": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "acu": 0.0,
+                    "normalized_acu": 0.0
+                }
+            }
+        ],
+        "system_outputs": [
+            {
+                "bart": "Juan Arango bites Jesus Zavela in a moment of madness in Club Tijuana's 4-3 defeat by Monterrey in the Mexican league. The Venezuelan icon sank his teeth into the shoulder of the opponent as his temper flared in the defeat. He was not booked by the referee but could face a heavy retrospective ban. Arango had earlier curled in a magnificent free kick for his team to bring them level after falling 2-0 down.",
+                "gold": "Juan Arango bit Jesus Zavala's shoulder in Club Tijuana's 4-3 defeat by Monterrey. The Venezuelan icon sank his teeth into the shoulder of Jesus Zavela. Arango was not booked by the referee but could face a heavy retrospective ban.",
+                "pegasus": "Club Tijuana lost 4-3 to Monterrey in the Mexican league. Juan Arango was not booked but could face a heavy retrospective ban. A Arango free kick had brought his team level at 2-2.",
+                "brio": "Juan Arango bites the shoulder of opponent Jesus Zavela in the Mexican league. The Club Tijuana star earlier scored a magnificent free kick to bring his team level against Monterrey . The Venezuelan icon could face a retrospective ban for the bite. Arango's side lost the game 4-3 in Mexico.",
+                "gsum": "Juan Arango bites Jesus Zavela in Club Tijuana's 4-3 defeat by Monterrey in the Mexican league. The Venezuelan icon sank his teeth into the shoulder of Jesus Zavala in a moment of madness. He was not booked by the referee but could face a heavy retrospective ban. The 34-year-old had earlier scored a magnificent free kick to bring his team level.",
+                "simcls": "Club Tijuana lost 4-3 to Monterrey in the Mexican league on Saturday. Juan Arango bit Jesus Zavela in a moment of madness. The Venezuelan icon could face a heavy retrospective ban. Arango had earlier scored a magnificent free kick to bring his team level.",
+                "cliff": "Juan Arango bites Jesus Zavela in Tijuana's 4-3 defeat by Monterrey. The Venezuelan icon sank his teeth into the shoulder of the opponent. He was not booked by the referee but could face a retrospective ban. Arango had earlier scored a magnificent free kick to bring his team level .",
+                "ctrlsum": "Juan Arango bit the shoulder of opponent Jesus Zavela in Club Tijuana's 4-3 defeat by Monterrey in the Mexican league. He was not booked by the referee but could face a heavy retrospective ban. Arango had earlier scored a magnificent free kick to bring his team level. CLICK HERE for all the latest Mexico news .",
+                "frost": "Juan Arango sank his teeth into the shoulder of Jesus Zavela . Club Tijuana lost 4-3 to Monterrey in the Mexican league . Arango earlier scored a magnificent free kick to bring his team level .",
+                "glob": "Juan Arango bit Jesus Zavela in Club Tijuana's 4-3 defeat by Monterrey. The Venezuelan icon sank his teeth into the shoulder of Jesus Zavela. He was not booked by the referee but could face a heavy retrospective ban.",
+                "matchsum": "Club Tijuana star Juan Arango conjured memories Luis Suarez in his team's 4-3 defeat by Monterrey in the Mexican league - but it was not through prodigious scoring. Juan Arango (left) bites the shoulder of opponent Jesus Zavela in a moment of madness.",
+                "brio-ext": "He was not booked by the referee but could face a heavy retrospective ban. Juan Arango (left) bites the shoulder of opponent Jesus Zavela in a moment of madness. Arango (right) earlier scored a magnificent free kick to bring his Club Tijuana team level against Monterrey."
+            },
+            {
+                "bart": "Gary Gardner has enjoyed a successful loan spell at Nottingham Forest. The 22-year-old scored a superb free-kick in front of Tim Sherwood during the defeat to Watford at the City Ground. Sherwood is keen to see Gardner train day-to-day before making up his mind.",
+                "gold": "Gary Gardner has enjoyed a successful loan spell at Nottingham Forest. The 22-year-old will report to Aston Villa for pre-season training in the summer. Tim Sherwood is keen to see Gardner train day-to-day before making up his mind. Gardner scored a superb free-kick against Watford at the City Ground on loan last season.",
+                "pegasus": "Gary Gardner will report to Aston Villa for pre-season training. Nottingham Forest loanee will be assessed by Tim Sherwood. Sherwood is keen to see Gardner train day-to-day.",
+                "brio": "Gary Gardner will report to Aston Villa for pre-season training to be assessed by Tim Sherwood. The 22-year-old has enjoyed a successful loan spell at Nottingham Forest. Gardner scored a stunning free-kick in front of Sherwood against Watford . The Villa boss is keen to see Gardner train day-to-day .",
+                "gsum": "Gary Gardner will report to Aston Villa for pre-season training to be assessed by Tim Sherwood. The Villa boss has inspired the club since being appointed and helped lead them to an FA Cup final. Gardner scored a stunning free-kick against Watford with Sherwood in attendance at the City Ground. The 22-year-old has enjoyed a successful loan spell at Nottingham Forest .",
+                "simcls": "Gary Gardner will report to Aston Villa for pre-season training. Tim Sherwood will assess the 22-year-old's fitness. Gardner has enjoyed a successful loan spell at Nottingham Forest. The former England Under-21 star scored a stunning free-kick against Watford.",
+                "cliff": "Gary Gardner has enjoyed a successful loan spell at Nottingham Forest. The 22-year-old will report to Aston Villa for pre-season training. Tim Sherwood is keen to see Gardner train day-to-day before making up his mind. Gardner joined Villa's academy aged seven and last year was rewarded with a new contract .",
+                "ctrlsum": "Gary Gardner will report to Aston Villa for pre-season training. The 22-year-old has been on loan at Nottingham Forest this season. Tim Sherwood wants to see Gardner in his first team squad. Gardner scored a stunning free-kick against Watford in front of Sherwood .",
+                "frost": "Gary Gardner will report to Aston Villa for pre-season training . The midfielder has been on loan at Nottingham Forest this season . Tim Sherwood will assess whether Gardner can make an impact at Villa .",
+                "glob": "Gary Gardner has enjoyed a successful loan spell at Nottingham Forest. The 22-year-old will return to Aston Villa for pre-season training. Tim Sherwood is keen to see Gardner train day-to-day before making a decision.",
+                "matchsum": "Gardner has enjoyed a successful loan spell at Nottingham Forest and scored a superb free-kick in front of the Villa manager during the defeat to Watford at the City Ground. Gary Gardner (left) will report to Aston Villa for pre-season training to be assessed by Tim Sherwood .",
+                "brio-ext": "Gardner has enjoyed a successful loan spell at Nottingham Forest and scored a superb free-kick in front of the Villa manager during the defeat to Watford at the City Ground. Gary Gardner (left) will report to Aston Villa for pre-season training to be assessed by Tim Sherwood ."
+            },
+            {
+                "bart": "Federal government regulations and the American Heart Association have for decades warned that excess salt contributes to the deaths of tens of thousands of Americans each year. As the federal government prepares its influential Dietary Guidelines for 2015, some scientists are now saying that the average American salt consumption rate carries no risk. 'There is no longer any valid basis for the current salt guidelines,' said Andrew Mente, a professor at McMaster University in Ontario.",
+                "gold": "Federal government regulations and the American Heart Association have for decades warned that excess salt contributes to the deaths of tens of thousands of Americans each year. As the federal government prepares its influential Dietary Guidelines for 2015, some scientists are now saying that the average American salt consumption rate carries no risk.",
+                "pegasus": "Federal government regulations and the American Heart Association have for decades warned that excess salt contributes to the deaths of tens of thousands of Americans each year. As the federal government prepares its influential Dietary Guidelines for 2015, some scientists are now saying that the average American salt consumption rate carries no risk. The guidelines currently dictate the people should limit their intake to 2,300 milligrams, with an even stricter 1,500 milligram limit for African Americans and people over 50.",
+                "brio": "Federal government regulations and the American Heart Association have for decades warned that excess salt contributes to the deaths of tens of thousands of Americans each year. As the federal government prepares its influential Dietary Guidelines for 2015, some scientists are now saying that the average American salt consumption rate carries no risk. The guidelines currently dictate the people should limit their intake to 2,300 milligrams of salt per day. Salt skeptics however believe most Americans are fine.",
+                "gsum": "Federal government regulations and the American Heart Association have for decades warned that excess salt contributes to the deaths of tens of thousands of Americans each year. As the federal government prepares its influential Dietary Guidelines for 2015, some scientists are now saying that the average American salt consumption rate carries no risk. The guidelines currently dictate the people should limit their intake to 2,300 milligrams, with an even stricter 1,500 milligram limit for African Americans and people over 50.",
+                "simcls": "Federal government regulations and the American Heart Association have warned that excess salt contributes to the deaths of tens of thousands of Americans each year. The guidelines currently dictate the people should limit their intake to 2,300 milligrams, with an even stricter 1,500 milligram limit for African Americans and people over 50. But some scientists are now saying that the average American salt consumption rate carries no risk.",
+                "cliff": "Both federal government regulations and the American Heart Association have for decades warned that excess salt contributes to the deaths of tens of thousands of Americans each year. As the federal government prepares its influential Dietary Guidelines for 2015, some scientists are now saying that the average American salt consumption rate carries no risk. The guidelines currently dictate the people should limit their intake to 2,300 milligrams.",
+                "ctrlsum": "Both federal government regulations and the American Heart Association have warned that excess salt contributes to the deaths of tens of thousands of Americans each year. As the federal government prepares its influential Dietary Guidelines for 2015, some scientists are now saying that the average American salt consumption rate carries no risk. The guidelines currently dictate the people should limit their intake to 2,300 milligrams, with an even stricter 1,500 milligram limit for African Americans and people over 50.",
+                "frost": "The federal government and the American Heart Association have for decades warned that excess salt contributes to the deaths of tens of thousands of Americans each year . The guidelines currently dictate the people should limit their intake to 2,300 milligrams, with an even stricter 1,500 milligram limit for African Americans and people over 50 . In February the Dietary Guidelines Advisory Committee recommended keeping the larger limit . Salt skeptics however believe a typical healthy person can consume as much as 6,000 milligrams per day without significantly raising health risks .",
+                "glob": "The average American ingests about 3,500 milligrams of salt per day. The guidelines currently dictate the people should limit their intake to 2,300 milligrams, with an even stricter 1,500 milligram limit for African Americans and people over 50.",
+                "matchsum": "Both federal government regulations and the American Heart Association have for decades warned that excess salt contributes to the deaths of tens of thousands of Americans each year. As the federal government prepares its influential Dietary Guidelines for 2015, some scientists are now saying that the average American salt consumption rate carries no risk. The guidelines currently dictate the people should limit their intake to 2,300 milligrams, with an even stricter 1,500 milligram limit for African Americans and people over 50.",
+                "brio-ext": "Both federal government regulations and the American Heart Association have for decades warned that excess salt contributes to the deaths of tens of thousands of Americans each year. As the federal government prepares its influential Dietary Guidelines for 2015, some scientists are now saying that the average American salt consumption rate carries no risk."
+            }
+        ]
+    },
+    "mocha": {
+        "constituent_dataset": [
+            "cosmosqa",
+            "cosmosqa",
+            "cosmosqa"
+        ],
+        "id": [
+            "002b5d9aa346d492b02705ae2c9f4abd",
+            "00336fecc378c067330935b63ce0351d",
+            "003950650438f8a6446095e8f7c8e0bd"
+        ],
+        "context": [
+            "Somewhere in me I knew it all along , there are all those moments when he stares into my eyes and his start to sparkle while this gorgeous grin spreads across his face . When he first started to do it I would ask him \" what ? What s funny ? \" he would always say nothing and attempt to divert his attention elsewhere .",
+            "Her dog and another kitten kept trying to escape the house while all this was going on . It was awkward and sad . I tried to be comforting because I could tell she was truly distraught but I was honestly mad at her for letting her animals out in the first place . She told me that she gave three of the kittens away to a home with dogs and two of them had been killed by the dogs already .",
+            "I know because some of the things learnt in Moral Studies and Malaysian Studies are in the syllabus of my other subjects as well , and I've heard far better explanations and examples than hers . I got so sick of her of her we - Malaysians - like - to - follow - the - West talks that I left the class and went down to have the lunch that I skipped earlier ( I am SO sorry to Aqil - I ate right in front of him , perfectly forgetting that it is the fasting season ) . When I returned to the class , my friend told me that I missed the best part ."
+        ],
+        "question": [
+            "What's a possible reason the guy stares into the writer's eyes ?",
+            "What might be different if the friend didn't give away kittens to homes with dogs ?",
+            "What may be your reason for leaving the Malaysian Studies class ?"
+        ],
+        "reference": [
+            "Because he likes her a lot .",
+            "Two of the kittens wouldn't have been killed",
+            "It didn't offer an accurate representation of that culture ."
+        ],
+        "candidate": [
+            "He's a child and it's a very rare thing.",
+            "The kitten would have been killed.",
+            "it does not have a clear idea about culture in it ."
+        ],
+        "score": [
+            1.0,
+            1.0,
+            3.0
+        ],
+        "metadata": [
+            {
+                "scores": [
+                    1
+                ],
+                "source": "gpt2"
+            },
+            {
+                "scores": [
+                    1
+                ],
+                "source": "gpt2"
+            },
+            {
+                "scores": [
+                    3
+                ],
+                "source": "backtranslation"
+            }
+        ],
+        "candidate2": [
+            "",
+            "",
+            ""
+        ],
+        "score2": [
+            -1.0,
+            -1.0,
+            -1.0
+        ]
+    },
+    "wmt_last_year": [
+        {
+            "langs": "en-cs",
+            "line_id": 703,
+            "src": "And because of that, you cannot trust any media outlet to report on the news fairly or accurately. Now that being said, I still think there's some value to the mainstream media. Just because they are exaggerated and biased, doesn't mean they can't be trusted at all. There's still a lot of useful information you can gather from these sources. You just have to know how to analyze them properly. The same is not necessarily true for the alternative media, the smaller companies or even individuals who talk about the news on sites like YouTube and Facebook.",
+            "tgt": "A proto nemůžete věřit žádnému médiu, že bude informovat o novinkách objektivně nebo přesně. Nicméně si stále myslím, že mainstreamová média mají nějakou hodnotu. Jen proto, že jsou přehnaná a zaujatá, neznamená, že jim nelze vůbec věřit. Ze zdrojů tohoto typu můžete získat stále spoustu užitečných informací. Jen je musíte umět správně analyzovat. To samé neplatí nutně pro alternativní média, menší společnosti nebo dokonce jednotlivce, kteří o novinkách hovoří na serverech, jako jsou YouTube a Facebook.",
+            "doc_id": "test-en-speech_2omlZQaheWE_000",
+            "domain": "speech",
+            "esa_spans": [],
+            "esa_score": "100",
+            "system": "Unbabel-Tower70B",
+            "annotator": "engces770b",
+            "speech_info": {
+                "file": "2omlZQaheWE_000.mp4",
+                "youtube": "https://www.youtube.com/watch?v=2omlZQaheWE"
+            }
+        },
+        {
+            "langs": "en-cs",
+            "line_id": 493,
+            "src": "Yea so I flew this today.",
+            "tgt": "Jo, tak s tímhle jsem dnes letěl.",
+            "doc_id": "test-en-social_112152593528184304",
+            "domain": "social",
+            "esa_spans": [],
+            "esa_score": "100",
+            "system": "CUNI-GA",
+            "annotator": "engces770b",
+            "speech_info": null
+        },
+        {
+            "langs": "en-cs",
+            "line_id": 494,
+            "src": "first complaint: we need cute logbooks. black is boring, pink is not even pink, it's salmon.",
+            "tgt": "První námitka: potřebujeme roztomilé deníky. Černá je nudná, růžová ani není růžová, ale lososová:",
+            "doc_id": "test-en-social_112152593528184304",
+            "domain": "social",
+            "esa_spans": [
+                {
+                    "start_i": 27,
+                    "end_i": 35,
+                    "severity": "minor",
+                    "error_type": null
+                }
+            ],
+            "esa_score": "80",
+            "system": "CUNI-GA",
+            "annotator": "engces770b",
+            "speech_info": null
+        }
+    ],
+    "wmt_older": {
+        "lp": [
+            "en-cs",
+            "en-cs",
+            "en-cs"
+        ],
+        "src": [
+            "What is your view of the match?",
+            "I actually haven't asked for a prognosis in forever, because I don't expect anyone to really be able to tell me.",
+            "Knowledge of a foreign language is useful in any profession and IT guys need to have at least a decent knowledge of English."
+        ],
+        "mt": [
+            "Jaký je váš pohled na zápas?",
+            "Vlastně jsem se neptal na prognózu věčnost, protože nečekám, že někdo je schopen mi to říct.",
+            "Znalost cizího jazyka je užitečné v každém povolání a IT potřebujete mít aspoň slušnou znalost angličtiny."
+        ],
+        "ref": [
+            "Jak byste zhodnotily zápas?",
+            "Ve skutečnosti jsem se nikdy neptala, jaká je celková prognóza, protože nečekám, že by mi to někdo vůbec dokázal říct.",
+            "Znalost cizího jazyka se hodí v každé profesí, u ajťáků je ale nezbytná minimálně slušná angličtina."
+        ],
+        "score": [
+            1.21043349715233,
+            -0.0191550495570631,
+            0.987599101515295
+        ],
+        "raw": [
+            89.2142857142857,
+            50.0666666666667,
+            79.5
+        ],
+        "annotators": [
+            14,
+            15,
+            6
+        ],
+        "domain": [
+            "news",
+            "news",
+            "news"
+        ],
+        "year": [
+            2017,
+            2017,
+            2017
+        ]
+    }
+}

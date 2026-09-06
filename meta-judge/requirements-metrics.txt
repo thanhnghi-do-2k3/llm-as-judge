@@ -1,0 +1,2 @@
+# BERTScore target packages. COMET and BLEURT use separate target directories.
+-r requirements-metric-bertscore.txt

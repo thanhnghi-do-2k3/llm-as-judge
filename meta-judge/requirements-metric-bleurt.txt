@@ -1,0 +1,4 @@
+# Installed with --target --no-deps. TensorFlow comes from the runtime.
+bleurt @ git+https://github.com/google-research/bleurt.git
+tf-slim==1.1.0
+sentencepiece==0.2.0

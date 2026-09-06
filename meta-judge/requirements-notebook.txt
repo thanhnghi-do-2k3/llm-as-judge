@@ -1,0 +1,8 @@
+-r requirements-core.txt
+evaluate>=0.4
+sacrebleu>=2.4
+rouge-score>=0.1.2
+nltk>=3.8
+torch>=2.2
+matplotlib>=3.8
+deep-translator>=1.11

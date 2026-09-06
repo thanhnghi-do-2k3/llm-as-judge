@@ -1,0 +1,16 @@
+.DS_Store
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+
+# Runtime artifacts are reproducible and can be large.
+cache/
+output/
+metric-cache/
+metric-output/
+
+# The source tree is committed directly; the old ZIP is no longer needed.
+resources/meta-judge-code.zip

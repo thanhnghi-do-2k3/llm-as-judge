@@ -1,0 +1,17 @@
+# Installed with --target --no-deps; never install another PyTorch wheel.
+# COMET 2.2.x requires the NumPy 1.x and Protobuf 4.x ABI line.
+numpy==1.26.4
+pandas==2.2.3
+protobuf==4.25.9
+unbabel-comet==2.2.7
+entmax==1.3
+huggingface-hub==0.36.2
+jsonargparse==3.13.1
+pytorch-lightning==2.6.5
+lightning-utilities==0.15.3
+sacrebleu==2.6.0
+scipy==1.14.1
+sentencepiece==0.2.0
+setuptools==80.9.0
+torchmetrics==0.10.3
+transformers==4.57.6
