@@ -638,3 +638,28 @@
 - UNKNOWN: this machine has no CUDA device, so BERTScore, COMET, and BLEURT
   downloads/model inference in the 24-row heavy smoke still require one fresh
   Colab GPU run.
+
+### 2026-09-06 Colab NumPy/Pandas ABI failure
+
+- Symptom: after dependency installation, the main notebook failed at
+  `import pandas` with `numpy.dtype size changed`, reporting C-header size 96
+  versus runtime object size 88.
+- Root cause — VERIFIED: `requirements-notebook.txt` included the pinned core
+  stack (`numpy==1.26.4`, `pandas==2.2.3`, `scipy==1.14.1`) and pip installed it
+  into the active Colab interpreter. The ABI probe ran in a clean subprocess,
+  while the notebook kernel could retain the pre-install NumPy module in RAM;
+  therefore the probe could pass and the subsequent in-kernel Pandas import
+  could still fail.
+- Fix: notebook requirements no longer include or pin the core stack. Before
+  installing auxiliary packages, setup records the runtime's existing
+  NumPy/Pandas/SciPy versions and supplies them to pip as constraints. It checks
+  that pip did not change them and rejects an already-tainted kernel when a
+  loaded module version differs from the installed distribution.
+- Hypothesis test — VERIFIED in a clean temporary virtualenv: dependency install
+  preserved all three scientific-stack versions and Pandas imported afterward.
+- Regression verification: 29 notebook tests and 28 vendored package tests pass;
+  the loaded-versus-disk mismatch guard and unpinned notebook requirements have
+  dedicated tests.
+- Runtime caveat: a Colab kernel already tainted by the previous notebook cannot
+  be repaired safely in place. Delete that runtime once, reconnect, and run the
+  updated notebook. Heavy CUDA smoke remains UNKNOWN until that run completes.

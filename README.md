@@ -39,3 +39,8 @@ clone source và resource vào runtime khi cần.
 Lần chạy đầu vẫn phải tải package và model metric từ Internet. Đây là cache
 runtime, không phải file cần upload. Dùng Python 3.12 trở xuống và bật GPU khi
 `RUN_HEAVY_METRICS=True`.
+
+Nếu runtime từng chạy một bản notebook cũ đã thay NumPy/Pandas, chọn
+**Runtime → Disconnect and delete runtime** trước khi chạy bản mới. Bootstrap
+hiện tại giữ nguyên NumPy/Pandas/SciPy của runtime và sẽ dừng với thông báo rõ
+nếu phát hiện phiên bản trong RAM khác phiên bản trên disk.

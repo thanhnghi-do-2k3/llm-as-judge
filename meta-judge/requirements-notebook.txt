@@ -1,4 +1,12 @@
--r requirements-core.txt
+# Không pin/downgrade NumPy, Pandas hoặc SciPy của kernel Colab. Cell setup tạo
+# constraint theo đúng scientific stack sẵn có trước khi cài các package này.
+numpy
+pandas
+scipy
+openpyxl>=3.1
+underthesea>=9.5
+tqdm>=4.66
+python-dotenv>=1.0
 evaluate>=0.4
 sacrebleu>=2.4
 rouge-score>=0.1.2
