@@ -214,7 +214,20 @@ def comet(ref: List[str], pred: List[str], src: Optional[List[str]] = None, mode
     metric = CACHED_METRICS[f"comet_{model_name}"]
     if src is None:
         src = [""] * len(ref)
-    batches = [{"src": s, "mt": p, "ref": r} for s, p, r in zip(src, pred, ref)]
+    # COMET checkpoints do not all use the same input schema.  Use the
+    # checkpoint's declared input segments when available; this handles both
+    # reference-based and QE models without relying on the model name.
+    input_segments = getattr(getattr(metric, "hparams", None), "input_segments", None)
+    values = {"src": src, "mt": pred, "ref": ref}
+    if input_segments:
+        batches = [
+            {name: values[name][index] for name in input_segments if name in values}
+            for index in range(len(pred))
+        ]
+    elif "qe" in model_name.lower():
+        batches = [{"src": s, "mt": p} for s, p in zip(src, pred)]
+    else:
+        batches = [{"src": s, "mt": p, "ref": r} for s, p, r in zip(src, pred, ref)]
 
     # Route the PyTorch-Lightning trainer to the specific GPU. Passing gpus=1
     # without a device list lets PL grab cuda:0 — which is where training lives.
@@ -227,7 +240,13 @@ def comet(ref: List[str], pred: List[str], src: Optional[List[str]] = None, mode
         pl_kwargs = {"accelerator": "cpu", "gpus": 0}
 
     with _cuda_device_guard():
-        scores = metric.predict(batches, batch_size=32, progress_bar=False, **pl_kwargs)['scores']
+        prediction = metric.predict(
+            batches, batch_size=32, progress_bar=False, **pl_kwargs
+        )
+    if isinstance(prediction, dict):
+        scores = prediction["scores"]
+    else:
+        scores = prediction.scores
     assert isinstance(scores, list), f"Expected list but got {type(scores)}"
     return scores
 

@@ -461,7 +461,7 @@ class NotebookExperiment:
     def _gemini_caller(self, messages, model, tokens):
         return self.gemini_caller(messages, model, tokens)
 
-    def generate(self, regenerate_damage=True, damage_files=None):
+    def generate(self, regenerate_damage=True, damage_files=None, include_rule_based=True):
         if not hasattr(self, "references"):
             raise RuntimeError("Chạy bước chuẩn bị dữ liệu trước.")
         reuse_files = {
@@ -499,7 +499,7 @@ class NotebookExperiment:
                 return {"status": "skipped", "reason": "empty_key_array"}
             return self._audit_branch(path, prompt)
 
-        jobs = {"rule_based": rule}
+        jobs = {"rule_based": rule} if include_rule_based else {}
         jobs.update(
             {p: lambda p=p: prompt_branch(p) for p in ["zero_shot", "few_shot"]}
         )
@@ -845,6 +845,11 @@ class NotebookExperiment:
                         (self.metrics_dir / "scores" / name / tokenization).glob("*.json")
                     )
                 )
+                if name != "human" and not paths:
+                    # A cached branch may only contain syllable scores (the
+                    # rule-based baseline); do not create a misleading empty
+                    # underthesea correlation row for it.
+                    continue
                 for path in paths:
                     payload = read_json(path, {})
                     for key, values in payload.get("scores", {}).items():
@@ -1072,6 +1077,13 @@ class NotebookExperiment:
             levels = pd.Series([r["damage_level"] for r in load_jsonl(path)])
             for tokenization in ["syllable", "underthesea"]:
                 score_path = self.metrics_dir / f"scores_{name}_{tokenization}.json"
+                if not score_path.is_file():
+                    score_path = (
+                        self.metrics_dir
+                        / "fast"
+                        / "results"
+                        / f"scores_{name}_{tokenization}.json"
+                    )
                 scores = read_json(score_path, {}).get("scores", {})
                 for metric, values in scores.items():
                     means = pd.Series(values).groupby(levels).mean().reindex(range(6))

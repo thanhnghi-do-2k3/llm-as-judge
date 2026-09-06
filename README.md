@@ -13,6 +13,12 @@ repo trên Colab; không cần upload ZIP hay file dữ liệu thủ công.
 - `resources/human_all.jsonl`: 600 hàng human dùng cho kiểm tra độc lập.
 - `resources/zero_shot.jsonl`, `few_shot.jsonl`: mỗi nhánh 1.800 hàng.
 - `cheat-runtime/`: notebook chuyên dụng cho generation hoặc chấm từng nhánh.
+  - `score-b1-self-contained.ipynb`: tự tìm hoặc clone repository, đọc B1/source
+    ngay trong repo; nếu remote thiếu B1 CSV thì dùng bản B1 nén kèm notebook.
+    Mặc định bật đường full: 16 metric nhẹ được đọc từ checkpoint, chỉ metric
+    nặng còn thiếu mới chạy và kết quả được xuất ra CSV.
+  - `score-b1.ipynb`: bản nộp giống self-contained, có clone/fallback và resume
+    checkpoint; không dừng Run All chỉ vì một metric nặng lỗi.
 
 ## Repo Git
 
@@ -33,7 +39,10 @@ Toàn bộ tùy chọn cần chỉnh nằm trong cell `setup` đầu tiên:
 | `REGENERATE_TRANSLATIONS` | `False` | Dùng A/B trong Git; bật `True` để sinh/resume A bằng Gemini và B bằng Google Translate. |
 | `REGENERATE_DAMAGE` | `False` | Dùng zero/few-shot trong Git; bật `True` để sinh/resume damage mới. |
 | `RUN_METRIC_SMOKE_TEST` | `True` | Test một cấu hình của từng họ metric trên 24 hàng. |
-| `RUN_FULL_METRICS` | `False` | Không chấm full cho tới khi smoke test đã pass. |
+| `RUN_FULL_METRICS` | `False` | Cờ full của đường chạy cũ khi không dùng source cache. Cache source vẫn được dùng full. |
+| `RERUN_METRICS` | `False` | `False` đọc archive metric trong `result/`; `True` bỏ cache và chạy lại full metric. |
+| `USE_SOURCE_METRIC_CACHE` | `True` | Dùng score đã lưu cho correlation/analysis; cache thiếu thì dừng rõ ràng. |
+| `USE_BASELINE_CACHE` | `True` | Đọc `result/baseline.csv` đã chấm đủ 1.800 dòng × 28 metric cho B1; không chạy metric worker B1. |
 
 Gemini key được phân thành hai mảng nhưng chạy qua cùng một scheduler:
 
@@ -54,10 +63,16 @@ không ghép `scores.xlsx` cũ, vì điểm đó thuộc các bản dịch A/B t
 - Đọc resource bằng đường dẫn tương đối trong repo.
 - Mặc định `REGENERATE_TRANSLATIONS=False` và `REGENERATE_DAMAGE=False`: dùng
   toàn bộ artifact trong Git, không gọi Gemini và không tốn quota.
-- Probe NumPy/Pandas, BERTScore, COMET và BLEURT trước khi chạy full.
-- Smoke test một config mỗi họ trên input nhỏ; lỗi dừng sớm và chỉ rõ log.
-- Mặc định `RUN_FULL_METRICS=False`: Run All chỉ chạy heavy smoke test; đổi thành
-  `True` sau khi smoke pass để chấm toàn bộ.
+- Với `RERUN_METRICS=False`, Run All giải nén và kiểm tra archive trong `result/`,
+  nạp toàn bộ score vào run hiện tại, bỏ qua smoke/metric worker và chạy tiếp các
+  cell correlation, baseline, diagnostics, demo, manifest.
+- Khi `USE_BASELINE_CACHE=True`, B1 được nạp từ `result/baseline.csv` và xuất
+  thêm bảng so sánh `rule_based` trong cell 6; file phải có 300 câu × 6 mức
+  damage và các cột `metric__...`.
+- Với `RERUN_METRICS=True`, notebook mới probe package, chạy smoke theo cờ
+  `RUN_METRIC_SMOKE_TEST`, rồi chấm full metric.
+- Không tự động tạo lại metric khi cache thiếu; đặt `SOURCE_METRIC_CACHE_DIR_OVERRIDE`
+  nếu archive nằm ở thư mục khác.
 - Full metric ghép human/B1/zero/few để mỗi model nặng chỉ nạp một lần.
 - Checkpoint tự resume trong cùng `RUN_NAME`.
 
