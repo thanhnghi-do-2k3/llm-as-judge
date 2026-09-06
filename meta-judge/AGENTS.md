@@ -21,6 +21,25 @@
 - Colab GPU execution is not available in the local workspace, so model download,
   CUDA batch sizing, and end-to-end BERTScore/COMET/BLEURT remain runtime checks.
 
+## 2026-09-06 B1 analysis-CSV cheat runtime
+
+- Existing artifact: `submit/analysis/b1_chrf_scores.csv` contains 1,800 rows
+  (`300 × 6`) and four precomputed chrF columns; its paired summary is
+  `submit/analysis/baseline_chrf.csv`.
+- Added `documents/nlp-ck_group/build_b1_metric_notebook.py`, which builds
+  `work/cheat-runtime/score-b1.ipynb`. The notebook consumes that CSV and
+  `source.csv`, joins source/reference text, and writes `b1_rule_based.jsonl`
+  plus `b1_rule_based_normalized.csv`. It does not call `generate_rule_baseline`
+  or any Gemini API.
+- The existing metric shard cells are reused to score B1. A final cell writes
+  `metric-output/b1/b1_metric_scores_<tokenization>.csv` with the row metadata
+  and all metric columns completed by the run.
+- Verified locally: B1 adapter produced 1,800 unique `(id, level)` rows and all
+  six levels for each of 300 IDs; the light runner completed 16 metrics with
+  zero failures; all four recomputed chrF columns agree with the archived CSV
+  within `1.2e-16`; three notebook-builder tests pass.
+- Unknown: BERTScore/COMET/BLEURT full execution remains GPU/runtime-dependent.
+
 ## 2026-09-06 damage-generation batching comparison
 
 - The current generator issues one request per `(sentence, prompt type, level)`,
@@ -702,3 +721,36 @@
   without API calls, then skipped full metrics as configured.
 - UNKNOWN: live Gemini throughput/429 behavior for the user's projects and full
   BERTScore/COMET/BLEURT CUDA execution remain Colab runtime checks.
+
+### 2026-09-06 main-notebook source metric cache mode
+
+- `work/main-experiment.ipynb` now has `RERUN_METRICS` and
+  `USE_SOURCE_METRIC_CACHE` controls. The default `RERUN_METRICS=False` loads
+  the two archived result ZIPs from `work/result/`, validates row/metric
+  alignment, and points downstream correlation/analysis cells at the extracted
+  scored JSONL and score JSON files.
+- Cache mode skips metric prefetch, smoke workers, and full metric workers. A
+  missing or malformed archive raises an explicit error; it never silently
+  regenerates scores. Set `RERUN_METRICS=True` to opt into the existing worker
+  path, with `RUN_FULL_METRICS=True` for a full rerun.
+- `vn_meta_judge.notebook_cache.load_source_metric_cache` performs safe ZIP
+  extraction and checks both branch/tokenization score lengths. A local Run All
+  harness reached correlation from source cache with 28 syllable metrics and 8
+  underthesea metrics, without API or metric-worker calls.
+- The notebook's existing Gemini key arrays remain unchanged for the user's
+  local regeneration workflow; cache mode does not call them. Do not copy
+  those values into a submission archive or report.
+
+### 2026-09-06 Kaggle cache-loader bootstrap
+
+- Symptom: Kaggle raised `ModuleNotFoundError: vn_meta_judge.notebook_cache`
+  in the source-cache branch.
+- Root cause — VERIFIED: `notebook_cache.py` was a local untracked source file,
+  while Kaggle cloned the older remote repository that did not contain it.
+- Fix: `work/main-experiment.ipynb` now contains a `cache-bootstrap` cell after
+  runtime setup. It writes the exact cache-loader source into the cloned
+  package when the file is absent, before the generation cell imports it.
+- Verification: a temporary package with `notebook_cache.py` removed was
+  restored by the bootstrap cell; notebook AST parsing, cache tests, and a
+  local source-cache Run All all passed. The updated notebook must be uploaded
+  or reopened in Kaggle after this change.
